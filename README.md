@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Gerenciador de Finanças para Empresas
 
-## Getting Started
+Este projeto é um **Gerenciador de Finanças** para empresas, desenvolvido utilizando **Next.js** no front-end e **Hono.js** no back-end. O aplicativo permite que empresas gerenciem suas finanças de forma eficiente, com recursos como controle de despesas, receitas, relatórios financeiros e muito mais.
 
-First, run the development server:
+## Índice
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- [Recursos](#recursos)
+- [Instalação](#instalação)
+- [Configuração](#configuração)
+- [Como Usar](#como-usar)
+- [Scripts Disponíveis](#scripts-disponíveis)
+- [Tecnologias Utilizadas](#tecnologias-utilizadas)
+- [Contribuindo](#contribuindo)
+- [Licença](#licença)
+
+## Recursos
+
+- Gerenciamento de receitas e despesas
+- Relatórios financeiros detalhados
+- Suporte para múltiplas contas e categorias
+- Controle de fluxo de caixa
+- Interface amigável e responsiva
+- API robusta com autenticação JWT
+
+## Instalação
+
+Para rodar o projeto localmente, siga os passos abaixo:
+
+1. Clone o repositório:
+   ```
+   git clone https://github.com/mangareira/finance.git
+   ```
+
+2. Entre no diretório do projeto:
+```
+cd finance
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. Instale as dependências do projeto:
+```
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Configuração
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Antes de iniciar a aplicação, você precisará configurar algumas variáveis de ambiente. Crie um arquivo `.env.local` na raiz do projeto com as seguintes informações:
 
-## Learn More
+# Configurações do Next.js
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY = sua key
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+NEXT_PUBLIC_APP_URL=http://localhost:3000
 
-To learn more about Next.js, take a look at the following resources:
+# Configurações do Clerk
+CLERK_PUBLISHABLE_KEY=sua key
+CLERK_SECRET_KEY=sua key
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Configuração da Database
+O repositorio esta usando Neon como banco de dados
+DATABASE_URL=postgresql://<nome_do_banco>:<senha_do_banco>@localhost:5432/finance
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Certifique-se de configurar corretamente o banco de dados e ajustar as variáveis conforme seu ambiente de desenvolvimento.
 
-## Deploy on Vercel
+## Como usar
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Rodar o Front-end (Next.js)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```
+npm run dev
+```
