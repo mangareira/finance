@@ -15,6 +15,20 @@
       "when": 1723653258959,
       "tag": "0001_far_rachel_grey",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1729537487610,
+      "tag": "0002_glorious_warstar",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1729537511043,
+      "tag": "0003_fearless_chat",
+      "breakpoints": true
     }
   ]
 }

@@ -9,8 +9,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useDeleteAccount } from '@/features/accounts/api/use-delete-account';
-import { useOpenAccount } from '@/features/accounts/hooks/use-open-account';
+import { useDeleteCategory } from '@/features/categories/api/use-delete-category';
+import { useOpenCategory } from '@/features/categories/hooks/use-open-category';
 import { useConfirm } from '@/hooks/use-confirm';
 
 type Props = {
@@ -20,17 +20,17 @@ type Props = {
 export const Actions = ({ id }: Props) => {
   const [ConfirmDialog, confirm] = useConfirm(
     'Você tem certeza ?',
-    'Você esta prestes a deletar uma conta'
+    'Você esta prestes a deletar uma categoria.'
   );
 
-  const { onOpen } = useOpenAccount();
-  const deleteAccount = useDeleteAccount(id);
+  const { onOpen } = useOpenCategory();
+  const deleteCategory = useDeleteCategory(id);
 
   const onDelete = async () => {
     const ok = await confirm();
 
     if (ok) {
-      deleteAccount.mutate();
+      deleteCategory.mutate();
     }
   };
 
@@ -45,18 +45,18 @@ export const Actions = ({ id }: Props) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuItem
-            disabled={deleteAccount.isPending}
+            disabled={deleteCategory.isPending}
             onClick={() => onOpen(id)}
           >
             <Edit className="size-4 mr-2" />
-            Edit
+            Editar
           </DropdownMenuItem>
           <DropdownMenuItem
-            disabled={deleteAccount.isPending}
+            disabled={deleteCategory.isPending}
             onClick={onDelete}
           >
             <Trash className="size-4 mr-2" />
-            Delete
+            Deletar
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

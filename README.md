@@ -32,14 +32,14 @@ Para rodar o projeto localmente, siga os passos abaixo:
    ```
 
 2. Entre no diretório do projeto:
-```
-cd finance
-```
+    ```
+    cd finance
+    ```
 
 3. Instale as dependências do projeto:
-```
-npm install
-```
+    ```
+    npm install
+    ```
 
 ## Configuração
 
