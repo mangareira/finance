@@ -29,6 +29,13 @@
       "when": 1729537511043,
       "tag": "0003_fearless_chat",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1729707973046,
+      "tag": "0004_windy_magdalene",
+      "breakpoints": true
     }
   ]
 }
