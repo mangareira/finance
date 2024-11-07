@@ -1,8 +1,8 @@
 import { create } from 'zustand';
 
-import { OpenAccountType } from '@/utils/interfaces/open-account';
+import { OpenTransactionType } from '@/utils/interfaces/open-transaction';
 
-export const useOpenAccount = create<OpenAccountType>((set) => ({
+export const useOpenTransaction = create<OpenTransactionType>((set) => ({
   id: undefined,
   isOpen: false,
   onClose: () => set({ isOpen: false, id: undefined }),
