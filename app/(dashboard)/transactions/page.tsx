@@ -1,4 +1,6 @@
 'use client';
+import { useState } from 'react';
+
 import { Loader2, Plus } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -8,10 +10,32 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { useDeleteBulkTransactions } from '@/features/transactions/api/use-delete-bulk-transaction';
 import { useGetTransactions } from '@/features/transactions/api/use-get-transactions';
 import { useNewTransaction } from '@/features/transactions/hooks/use-new-transaction';
+import { VARIANTS } from '@/utils/interfaces/enun-variants';
 
 import { columns } from './columns';
+import { ImportCard } from './import-card';
+import { UploadButton } from './upload-button';
+
+const INITIAL_IMPORT_RESULTS = {
+  data: [],
+  errors: [],
+  meta: {},
+};
 
 export default function TransactionPage() {
+  const [variant, setVariant] = useState<VARIANTS>(VARIANTS.LIST);
+  const [importResults, setImportResults] = useState(INITIAL_IMPORT_RESULTS);
+
+  const onUpload = (results: typeof INITIAL_IMPORT_RESULTS) => {
+    setImportResults(results);
+    setVariant(VARIANTS.IMPORT);
+  };
+
+  const onCancelImport = () => {
+    setImportResults(INITIAL_IMPORT_RESULTS);
+    setVariant(VARIANTS.LIST);
+  };
+
   const newTransaction = useNewTransaction();
   const deleteTransactions = useDeleteBulkTransactions();
   const transactionQuery = useGetTransactions();
@@ -36,6 +60,18 @@ export default function TransactionPage() {
     );
   }
 
+  if (variant === VARIANTS.IMPORT) {
+    return (
+      <>
+        <ImportCard
+          data={importResults.data}
+          onCancel={onCancelImport}
+          onSubmit={() => {}}
+        />
+      </>
+    );
+  }
+
   return (
     <div className="max-w-screen-2xl mx-auto w-full pb-10 -mt-24">
       <Card className="border-none drop-shadow-sm">
@@ -43,10 +79,17 @@ export default function TransactionPage() {
           <CardTitle className="text-xl line-clamp-1">
             Historico de Transações
           </CardTitle>
-          <Button size={'sm'} onClick={newTransaction.onOpen}>
-            <Plus className="size-4 mr-2" />
-            Adcionar
-          </Button>
+          <div className="flex items-center gap-x-2 flex-col lg:flex-row gap-y-2">
+            <Button
+              className="w-full lg:w-auto"
+              size={'sm'}
+              onClick={newTransaction.onOpen}
+            >
+              <Plus className="size-4 mr-2" />
+              Adcionar
+            </Button>
+            <UploadButton onUpload={onUpload} />
+          </div>
         </CardHeader>
         <CardContent>
           <DataTable
