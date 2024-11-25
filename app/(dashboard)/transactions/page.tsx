@@ -2,11 +2,15 @@
 import { useState } from 'react';
 
 import { Loader2, Plus } from 'lucide-react';
+import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { DataTable } from '@/components/ui/data-table';
 import { Skeleton } from '@/components/ui/skeleton';
+import { transactions as transactionSchema } from '@/db/schema';
+import { useSelectAccount } from '@/features/accounts/hooks/use-select-account';
+import { useCreateBulkTransactions } from '@/features/transactions/api/use-create-bulk-transaction';
 import { useDeleteBulkTransactions } from '@/features/transactions/api/use-delete-bulk-transaction';
 import { useGetTransactions } from '@/features/transactions/api/use-get-transactions';
 import { useNewTransaction } from '@/features/transactions/hooks/use-new-transaction';
@@ -23,6 +27,7 @@ const INITIAL_IMPORT_RESULTS = {
 };
 
 export default function TransactionPage() {
+  const [AccountDialog, confirm] = useSelectAccount();
   const [variant, setVariant] = useState<VARIANTS>(VARIANTS.LIST);
   const [importResults, setImportResults] = useState(INITIAL_IMPORT_RESULTS);
 
@@ -37,11 +42,32 @@ export default function TransactionPage() {
   };
 
   const newTransaction = useNewTransaction();
+  const createTransactions = useCreateBulkTransactions();
   const deleteTransactions = useDeleteBulkTransactions();
   const transactionQuery = useGetTransactions();
   const transaction = transactionQuery.data || [];
 
   const isDisabled = transactionQuery.isLoading || deleteTransactions.isPending;
+
+  const onSubmitImport = async (
+    values: (typeof transactionSchema.$inferInsert)[]
+  ) => {
+    const accountId = await confirm();
+    if (!accountId) {
+      return toast.error('Por favor selecione uma conat para continuar.');
+    }
+
+    const data = values.map((value) => ({
+      ...value,
+      accountId: accountId as string,
+    }));
+
+    createTransactions.mutate(data, {
+      onSuccess: () => {
+        onCancelImport();
+      },
+    });
+  };
 
   if (transactionQuery.isLoading) {
     return (
@@ -63,10 +89,11 @@ export default function TransactionPage() {
   if (variant === VARIANTS.IMPORT) {
     return (
       <>
+        <AccountDialog />
         <ImportCard
           data={importResults.data}
           onCancel={onCancelImport}
-          onSubmit={() => {}}
+          onSubmit={onSubmitImport}
         />
       </>
     );
