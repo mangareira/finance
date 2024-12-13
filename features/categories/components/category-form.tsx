@@ -51,7 +51,7 @@ export const CategoryForm = ({
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
+              <FormLabel>Nome</FormLabel>
               <FormControl>
                 <Input
                   disabled={disable}
@@ -63,7 +63,7 @@ export const CategoryForm = ({
           )}
         />
         <Button className="w-full" disabled={disable}>
-          {id ? 'Save changes' : 'Create category'}
+          {id ? 'Salvar mudanças' : 'Criar categoria'}
         </Button>
         {!!id && (
           <Button
@@ -74,7 +74,7 @@ export const CategoryForm = ({
             onClick={handleDelete}
           >
             <Trash className="size-4 mr-2" />
-            Delete category
+            Deletar categoria
           </Button>
         )}
       </form>

@@ -25,10 +25,11 @@ export const useEditCategory = (id?: string) => {
       queryClient.invalidateQueries({ queryKey: ['category', { id }] });
       queryClient.invalidateQueries({ queryKey: ['categories'] });
       queryClient.invalidateQueries({ queryKey: ['transactions'] });
-      toast.success('Category Update');
+      queryClient.invalidateQueries({ queryKey: ['summary'] });
+      toast.success('Categoria autalizada');
     },
     onError: () => {
-      toast.error('Failed to edit a category');
+      toast.error('Falha ao autalizar categoria');
     },
   });
   return mutation;

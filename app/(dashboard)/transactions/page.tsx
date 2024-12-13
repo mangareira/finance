@@ -124,6 +124,7 @@ export default function TransactionPage() {
             data={transaction}
             disabled={isDisabled}
             filterkey="payee"
+            placeholder="Beneficiario"
             onDelete={(row) => {
               const ids = row.map((r) => r.original.id);
               deleteTransactions.mutate({ ids });

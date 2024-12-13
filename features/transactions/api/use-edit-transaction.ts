@@ -24,10 +24,11 @@ export const useEditTransaction = (id?: string) => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['transaction', { id }] });
       queryClient.invalidateQueries({ queryKey: ['transactions'] });
-      toast.success('Transaction Update');
+      queryClient.invalidateQueries({ queryKey: ['summary'] });
+      toast.success('Transação autalizada');
     },
     onError: () => {
-      toast.error('Failed to edit a transaction');
+      toast.error('Falha ao autalizar a transação');
     },
   });
   return mutation;

@@ -43,7 +43,7 @@ export default function AccountPage() {
           <CardTitle className="text-xl line-clamp-1">Contas</CardTitle>
           <Button size={'sm'} onClick={newAccount.onOpen}>
             <Plus className="size-4 mr-2" />
-            Add new
+            Adcionar
           </Button>
         </CardHeader>
         <CardContent>
@@ -52,6 +52,7 @@ export default function AccountPage() {
             data={accounts}
             disabled={isDisabled}
             filterkey="name"
+            placeholder="nome"
             onDelete={(row) => {
               const ids = row.map((r) => r.original.id);
               deleteAccounts.mutate({ ids });

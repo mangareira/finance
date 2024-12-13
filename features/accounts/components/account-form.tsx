@@ -51,7 +51,7 @@ export const AccountForm = ({
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
+              <FormLabel>Nome</FormLabel>
               <FormControl>
                 <Input
                   disabled={disable}
@@ -63,7 +63,7 @@ export const AccountForm = ({
           )}
         />
         <Button className="w-full" disabled={disable}>
-          {id ? 'Save changes' : 'Create account'}
+          {id ? 'Salvar mudanças' : 'Criar conta'}
         </Button>
         {!!id && (
           <Button
@@ -74,7 +74,7 @@ export const AccountForm = ({
             onClick={handleDelete}
           >
             <Trash className="size-4 mr-2" />
-            Delete account
+            Deletar conta
           </Button>
         )}
       </form>

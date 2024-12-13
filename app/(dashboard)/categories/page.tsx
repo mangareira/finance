@@ -43,7 +43,7 @@ export default function CategoriesPage() {
           <CardTitle className="text-xl line-clamp-1">Categorias</CardTitle>
           <Button size={'sm'} onClick={newCategory.onOpen}>
             <Plus className="size-4 mr-2" />
-            Add new
+            Adicionar
           </Button>
         </CardHeader>
         <CardContent>
@@ -52,6 +52,7 @@ export default function CategoriesPage() {
             data={categories}
             disabled={isDisabled}
             filterkey="name"
+            placeholder="nome"
             onDelete={(row) => {
               const ids = row.map((r) => r.original.id);
               deleteCategories.mutate({ ids });

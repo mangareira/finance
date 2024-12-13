@@ -19,11 +19,12 @@ export const useDeleteBulkCategories = () => {
       return await res.json();
     },
     onSuccess: () => {
-      toast.success('Categories deleted');
+      toast.success('Categorias deletadas');
       queryClient.invalidateQueries({ queryKey: ['Categories'] });
+      queryClient.invalidateQueries({ queryKey: ['summary'] });
     },
     onError: () => {
-      toast.error('Failed to delete Categories');
+      toast.error('Falha ao deletar categorias');
     },
   });
   return mutation;

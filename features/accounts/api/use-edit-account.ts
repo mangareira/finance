@@ -25,10 +25,11 @@ export const useEditAccount = (id?: string) => {
       queryClient.invalidateQueries({ queryKey: ['account', { id }] });
       queryClient.invalidateQueries({ queryKey: ['accounts'] });
       queryClient.invalidateQueries({ queryKey: ['transactions'] });
-      toast.success('Account Update');
+      queryClient.invalidateQueries({ queryKey: ['summary'] });
+      toast.success('Conta autalizada');
     },
     onError: () => {
-      toast.error('Failed to edit a account');
+      toast.error('Falha ao autalizar conta');
     },
   });
   return mutation;

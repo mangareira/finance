@@ -34,6 +34,7 @@ interface DataTableProps<TData, TValue> {
   filterkey: string;
   onDelete: (row: Row<TData>[]) => void;
   disabled?: boolean;
+  placeholder?: string;
 }
 
 export function DataTable<TData, TValue>({
@@ -42,10 +43,11 @@ export function DataTable<TData, TValue>({
   filterkey,
   onDelete,
   disabled,
+  placeholder,
 }: DataTableProps<TData, TValue>) {
   const [ConfimationDialog, confirm] = useConfirm(
     'Tem certeza ?',
-    'Você esta prestes a deletar algum'
+    'Você esta prestes a deletar algumas transações'
   );
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -75,7 +77,7 @@ export function DataTable<TData, TValue>({
       <div className="flex items-center py-4">
         <Input
           className="max-w-sm"
-          placeholder={`Filter ${filterkey}...`}
+          placeholder={`Filtrar ${placeholder}...`}
           value={(table.getColumn(filterkey)?.getFilterValue() as string) ?? ''}
           onChange={(event) =>
             table.getColumn(filterkey)?.setFilterValue(event.target.value)
@@ -96,7 +98,7 @@ export function DataTable<TData, TValue>({
             }}
           >
             <Trash className="size-4 mr-2" />
-            Delete ({table.getFilteredSelectedRowModel().rows.length})
+            Deletar ({table.getFilteredSelectedRowModel().rows.length})
           </Button>
         )}
       </div>
@@ -144,7 +146,7 @@ export function DataTable<TData, TValue>({
                   className="h-24 text-center"
                   colSpan={columns.length}
                 >
-                  No results.
+                  Sem resultados.
                 </TableCell>
               </TableRow>
             )}
@@ -153,8 +155,8 @@ export function DataTable<TData, TValue>({
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of{' '}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
+          {table.getFilteredSelectedRowModel().rows.length} de{' '}
+          {table.getFilteredRowModel().rows.length} linha(s) selecionada(s).
         </div>
         <Button
           disabled={!table.getCanPreviousPage()}
@@ -162,7 +164,7 @@ export function DataTable<TData, TValue>({
           variant="outline"
           onClick={() => table.previousPage()}
         >
-          Previous
+          Anterior
         </Button>
         <Button
           disabled={!table.getCanNextPage()}
@@ -170,7 +172,7 @@ export function DataTable<TData, TValue>({
           variant="outline"
           onClick={() => table.nextPage()}
         >
-          Next
+          Proximo
         </Button>
       </div>
     </div>
