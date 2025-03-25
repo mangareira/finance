@@ -8,10 +8,9 @@ import { convertAmountToMiliunitis } from '@/lib/utils';
 import { ImportCardProps } from '@/utils/interfaces/import-card-props';
 import { SelectColumnsState } from '@/utils/interfaces/select-columns-state';
 
-import { columns } from './columns';
 import { ImportTable } from './import-table';
 
-const dateFormt = 'yyyy-MM-dd HH:mm:ss';
+const dateFormt = 'dd-MM-yyyy';
 const outputFormt = 'yyyy-MM-dd';
 
 const requiredOptions = ['amount', 'date', 'payee'];
@@ -45,6 +44,10 @@ export const ImportCard = ({ data, onCancel, onSubmit }: ImportCardProps) => {
     });
   };
 
+  const filterbody = body.filter((row) => {
+    return row.length >= 3 && row.every((element) => element.trim() !== '');
+  });
+
   const progress = Object.values(selectedColumns).filter(Boolean).length;
 
   const handleContinue = () => {
@@ -57,7 +60,7 @@ export const ImportCard = ({ data, onCancel, onSubmit }: ImportCardProps) => {
         const columnIndex = getColumnIndex(`column_${index}`);
         return selectedColumns[`column_${columnIndex}`] || null;
       }),
-      body: body
+      body: filterbody
         .map((row) => {
           const transformRow = row.map((cell, index) => {
             const columnIndex = getColumnIndex(`column_${index}`);
@@ -70,7 +73,6 @@ export const ImportCard = ({ data, onCancel, onSubmit }: ImportCardProps) => {
         })
         .filter((row) => row.length > 0),
     };
-
     const arryOfData = mappedData.body.map((row) => {
       return row.reduce((acc: any, cell, index) => {
         const header = mappedData.headers[index];
@@ -87,7 +89,6 @@ export const ImportCard = ({ data, onCancel, onSubmit }: ImportCardProps) => {
       amount: convertAmountToMiliunitis(parseFloat(item.amount)),
       date: format(parse(item.date, dateFormt, new Date()), outputFormt),
     }));
-
     onSubmit(formattedData);
   };
 
@@ -114,7 +115,7 @@ export const ImportCard = ({ data, onCancel, onSubmit }: ImportCardProps) => {
         </CardHeader>
         <CardContent>
           <ImportTable
-            body={body}
+            body={filterbody}
             headers={headers}
             selectedColumns={selectedColumns}
             onTableHeadSelectChange={onTableHeadSelectChange}

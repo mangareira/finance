@@ -46,6 +46,7 @@ export default function TransactionPage() {
   const deleteTransactions = useDeleteBulkTransactions();
   const transactionQuery = useGetTransactions();
   const transaction = transactionQuery.data || [];
+  console.log(transaction);
 
   const isDisabled = transactionQuery.isLoading || deleteTransactions.isPending;
 

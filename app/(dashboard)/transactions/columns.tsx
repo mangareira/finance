@@ -59,7 +59,11 @@ export const columns: ColumnDef<ResponseType>[] = [
     },
     cell: ({ row }) => {
       const date = row.getValue('date') as Date;
-      return <span>{format(date, 'dd MMMM, yyyy', { locale: ptBR })}</span>;
+      const newDate = `${date.toString().split('T')[0]}T0${
+        Number(date.toString().split('T')[1].split(':')[0]) + 1
+      }:${date.toString().split('T')[1].split(':')[1]}`;
+
+      return <span>{format(newDate, 'dd MMMM, yyyy', { locale: ptBR })}</span>;
     },
   },
   {
